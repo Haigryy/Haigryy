@@ -1,95 +1,343 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="dark">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Media Ajar Interaktif — Dasar Pemrograman UKDW</title>
-  <!-- Google Fonts dengan fallback sistem monospace & sans-serif -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melodia — Stream Musik Online</title>
+    <meta name="description" content="Melodia - Dengarkan musik favoritmu secara online. Cari lagu, lihat lirik, dan nikmati musik tanpa batas.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Progress Bar Atas -->
-  <div class="top-progress-wrap" aria-hidden="true">
-    <div id="progressBar" class="top-progress-bar"></div>
-  </div>
+    <div class="app-container">
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <span class="material-icons-round">graphic_eq</span>
+                    </div>
+                    <h1>Melodia</h1>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a class="nav-link active" data-page="home" id="navHome">
+                    <span class="material-icons-round">home</span>
+                    <span>Beranda</span>
+                </a>
+                <a class="nav-link" data-page="search" id="navSearch">
+                    <span class="material-icons-round">search</span>
+                    <span>Cari</span>
+                </a>
+                <a class="nav-link" data-page="library" id="navLibrary">
+                    <span class="material-icons-round">library_music</span>
+                    <span>Koleksi</span>
+                </a>
+            </nav>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section">
+                <div class="section-header">
+                    <span>Playlist</span>
+                </div>
+                <div class="playlist-links">
+                    <a class="nav-link" data-page="liked" id="navLiked">
+                        <span class="material-icons-round liked-icon">favorite</span>
+                        <span>Lagu Disukai</span>
+                    </a>
+                    <a class="nav-link" data-page="recent" id="navRecent">
+                        <span class="material-icons-round">history</span>
+                        <span>Terakhir Diputar</span>
+                    </a>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <div class="sidebar-footer-text">
+                    <span class="material-icons-round">info</span>
+                    <span>Preview 30 detik via Deezer</span>
+                </div>
+            </div>
+        </aside>
 
-  <!-- Header Navigasi Atas -->
-  <header class="app-header">
-    <div class="header-left">
-      <button id="btnMenu" class="icon-btn" aria-label="Buka Daftar Bab dan Slide (M)" title="Daftar Bab & Slide (M / Esc)">
-        ☰ <span class="btn-label">Daftar Isi</span>
-      </button>
-      <span id="chapterBadge" class="chapter-pill">Bab 0</span>
-      <span id="slideTypeBadge" class="type-pill">📘 Konsep</span>
+        <!-- ===== MAIN WRAPPER ===== -->
+        <div class="main-wrapper">
+            <!-- Header -->
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button class="btn-icon mobile-menu-btn" id="btnMobileMenu">
+                        <span class="material-icons-round">menu</span>
+                    </button>
+                </div>
+                <div class="header-search" id="headerSearch">
+                    <span class="material-icons-round">search</span>
+                    <input type="text" placeholder="Cari lagu, artis, atau album..." id="searchInput" autocomplete="off">
+                    <button class="btn-icon search-clear" id="btnClearSearch" style="display:none">
+                        <span class="material-icons-round">close</span>
+                    </button>
+                </div>
+                <div class="header-right">
+                    <div class="header-greeting" id="headerGreeting"></div>
+                </div>
+            </header>
+
+            <!-- Pages Container -->
+            <main class="main-content" id="mainContent">
+                <!-- HOME PAGE -->
+                <section class="page active" id="homePage">
+                    <div class="hero-banner" id="heroBanner">
+                        <div class="hero-overlay"></div>
+                        <div class="hero-content">
+                            <span class="hero-badge">🔥 Trending</span>
+                            <h2 class="hero-title" id="heroTitle">Selamat Datang di Melodia</h2>
+                            <p class="hero-subtitle" id="heroSubtitle">Temukan musik favoritmu dan dengarkan kapan saja</p>
+                            <button class="btn-primary" id="heroPlayBtn">
+                                <span class="material-icons-round">play_arrow</span>
+                                Putar Trending
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="section" id="trendingSection">
+                        <div class="section-title">
+                            <h2>🎵 Trending Sekarang</h2>
+                            <button class="btn-text" data-action="see-all-trending">Lihat Semua</button>
+                        </div>
+                        <div class="track-grid" id="trendingTracks">
+                            <div class="loading-skeleton">
+                                <div class="skeleton-card"></div>
+                                <div class="skeleton-card"></div>
+                                <div class="skeleton-card"></div>
+                                <div class="skeleton-card"></div>
+                                <div class="skeleton-card"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" id="artistSection">
+                        <div class="section-title">
+                            <h2>🎤 Artis Populer</h2>
+                        </div>
+                        <div class="artist-scroll" id="topArtists">
+                            <div class="loading-skeleton">
+                                <div class="skeleton-circle"></div>
+                                <div class="skeleton-circle"></div>
+                                <div class="skeleton-circle"></div>
+                                <div class="skeleton-circle"></div>
+                                <div class="skeleton-circle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" id="genreSection">
+                        <div class="section-title">
+                            <h2>🎧 Jelajahi Genre</h2>
+                        </div>
+                        <div class="genre-grid" id="genreGrid"></div>
+                    </div>
+                </section>
+
+                <!-- SEARCH PAGE -->
+                <section class="page" id="searchPage">
+                    <div class="search-content">
+                        <div class="search-placeholder" id="searchPlaceholder">
+                            <span class="material-icons-round search-big-icon">search</span>
+                            <h2>Cari Musik Favoritmu</h2>
+                            <p>Ketik judul lagu, nama artis, atau album</p>
+                        </div>
+                        <div class="search-results" id="searchResults" style="display:none">
+                            <div class="search-tabs">
+                                <button class="tab active" data-tab="songs">Lagu</button>
+                                <button class="tab" data-tab="artists">Artis</button>
+                                <button class="tab" data-tab="albums">Album</button>
+                            </div>
+                            <div class="tab-content active" id="tabSongs"></div>
+                            <div class="tab-content" id="tabArtists"></div>
+                            <div class="tab-content" id="tabAlbums"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- LIBRARY PAGE -->
+                <section class="page" id="libraryPage">
+                    <h2 class="page-title">Koleksi Saya</h2>
+                    <div class="library-grid">
+                        <div class="library-card" data-action="show-liked">
+                            <div class="library-card-icon liked-gradient">
+                                <span class="material-icons-round">favorite</span>
+                            </div>
+                            <div class="library-card-info">
+                                <h3>Lagu Disukai</h3>
+                                <p id="likedCount">0 lagu</p>
+                            </div>
+                        </div>
+                        <div class="library-card" data-action="show-recent">
+                            <div class="library-card-icon recent-gradient">
+                                <span class="material-icons-round">history</span>
+                            </div>
+                            <div class="library-card-info">
+                                <h3>Terakhir Diputar</h3>
+                                <p id="recentCount">0 lagu</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- LIKED SONGS PAGE -->
+                <section class="page" id="likedPage">
+                    <div class="playlist-header liked-gradient-bg">
+                        <span class="material-icons-round playlist-header-icon">favorite</span>
+                        <div>
+                            <h2>Lagu Disukai</h2>
+                            <p id="likedPageCount">0 lagu</p>
+                        </div>
+                    </div>
+                    <div class="track-list" id="likedTrackList">
+                        <div class="empty-state">
+                            <span class="material-icons-round">favorite_border</span>
+                            <p>Belum ada lagu yang disukai</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RECENT PAGE -->
+                <section class="page" id="recentPage">
+                    <div class="playlist-header recent-gradient-bg">
+                        <span class="material-icons-round playlist-header-icon">history</span>
+                        <div>
+                            <h2>Terakhir Diputar</h2>
+                            <p id="recentPageCount">0 lagu</p>
+                        </div>
+                    </div>
+                    <div class="track-list" id="recentTrackList">
+                        <div class="empty-state">
+                            <span class="material-icons-round">history</span>
+                            <p>Belum ada riwayat pemutaran</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARTIST PAGE -->
+                <section class="page" id="artistPage">
+                    <div class="artist-header" id="artistHeader"></div>
+                    <div class="artist-tracks" id="artistTracks"></div>
+                </section>
+
+                <!-- LYRICS PAGE -->
+                <section class="page" id="lyricsPage">
+                    <div class="lyrics-container" id="lyricsContainer">
+                        <div class="lyrics-header">
+                            <img src="" alt="" class="lyrics-album-art" id="lyricsAlbumArt">
+                            <div class="lyrics-track-info">
+                                <h2 id="lyricsTrackName">—</h2>
+                                <p id="lyricsArtistName">—</p>
+                            </div>
+                        </div>
+                        <div class="lyrics-body" id="lyricsBody">
+                            <div class="empty-state">
+                                <span class="material-icons-round">lyrics</span>
+                                <p>Putar lagu untuk melihat lirik</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- ===== NOW PLAYING BAR ===== -->
+            <footer class="player-bar" id="playerBar">
+                <div class="player-track-info" id="playerTrackInfo">
+                    <div class="player-album-art-wrapper">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%231a1a2e' width='100' height='100'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='%234a4a6a' font-size='30'%3E♪%3C/text%3E%3C/svg%3E" alt="Album Art" class="player-album-art" id="playerAlbumArt">
+                    </div>
+                    <div class="player-track-details">
+                        <span class="player-track-name" id="playerTrackName">Belum ada lagu</span>
+                        <span class="player-artist-name" id="playerArtistName">—</span>
+                    </div>
+                    <button class="btn-icon btn-like" id="btnLike" title="Suka">
+                        <span class="material-icons-round">favorite_border</span>
+                    </button>
+                </div>
+                <div class="player-controls">
+                    <div class="player-buttons">
+                        <button class="btn-icon btn-sm" id="btnShuffle" title="Acak">
+                            <span class="material-icons-round">shuffle</span>
+                        </button>
+                        <button class="btn-icon" id="btnPrev" title="Sebelumnya">
+                            <span class="material-icons-round">skip_previous</span>
+                        </button>
+                        <button class="btn-icon btn-play" id="btnPlay" title="Putar">
+                            <span class="material-icons-round">play_arrow</span>
+                        </button>
+                        <button class="btn-icon" id="btnNext" title="Selanjutnya">
+                            <span class="material-icons-round">skip_next</span>
+                        </button>
+                        <button class="btn-icon btn-sm" id="btnRepeat" title="Ulangi">
+                            <span class="material-icons-round">repeat</span>
+                        </button>
+                    </div>
+                    <div class="player-progress">
+                        <span class="time-label" id="timeCurrent">0:00</span>
+                        <div class="progress-bar-wrapper" id="progressBar">
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" id="progressFill"></div>
+                            </div>
+                            <input type="range" class="progress-range" id="progressRange" min="0" max="100" value="0" step="0.1">
+                        </div>
+                        <span class="time-label" id="timeTotal">0:00</span>
+                    </div>
+                </div>
+                <div class="player-extras">
+                    <button class="btn-icon btn-sm" id="btnLyrics" title="Lirik">
+                        <span class="material-icons-round">lyrics</span>
+                    </button>
+                    <button class="btn-icon btn-sm" id="btnQueue" title="Antrian">
+                        <span class="material-icons-round">queue_music</span>
+                    </button>
+                    <div class="volume-control" id="volumeControl">
+                        <button class="btn-icon btn-sm" id="btnVolume" title="Volume">
+                            <span class="material-icons-round">volume_up</span>
+                        </button>
+                        <div class="volume-slider-wrapper">
+                            <div class="volume-bar-bg">
+                                <div class="volume-bar-fill" id="volumeFill"></div>
+                            </div>
+                            <input type="range" class="volume-range" id="volumeRange" min="0" max="100" value="80" step="1">
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
 
-    <div class="header-center">
-      <span class="course-title">Informatika UKDW · Dasar Pemrograman</span>
+    <!-- ===== QUEUE PANEL ===== -->
+    <div class="queue-panel" id="queuePanel">
+        <div class="queue-header">
+            <h3>Antrian Putar</h3>
+            <button class="btn-icon" id="btnCloseQueue">
+                <span class="material-icons-round">close</span>
+            </button>
+        </div>
+        <div class="queue-now-playing" id="queueNowPlaying"></div>
+        <div class="queue-list-header">
+            <span>Selanjutnya</span>
+            <button class="btn-text" id="btnClearQueue">Hapus Semua</button>
+        </div>
+        <div class="queue-list" id="queueList">
+            <div class="empty-state small">
+                <p>Antrian kosong</p>
+            </div>
+        </div>
     </div>
 
-    <div class="header-right">
-      <button id="btnStepReveal" class="icon-btn step-indicator" aria-label="Tampilkan Langkah Berikutnya" title="Munculkan poin bertahap (Spasi / Panah Kanan)">
-        👣 <span id="stepCounterText">Langkah</span>
-      </button>
-      <button id="btnNotes" class="icon-btn" aria-label="Catatan Pemateri (N)" title="Mode Dosen / Catatan Pembicara (N)">
-        🎙️ <span class="btn-label">Catatan (N)</span>
-      </button>
-      <button id="btnTheme" class="icon-btn" aria-label="Ganti Tema Terang atau Gelap (T)" title="Mode Terang/Gelap (T)">
-        🌗
-      </button>
-      <button id="btnFullscreen" class="icon-btn" aria-label="Layar Penuh (F)" title="Layar Penuh (F)">
-        ⛶ <span class="btn-label">Layar Penuh</span>
-      </button>
-    </div>
-  </header>
+    <!-- ===== OVERLAY ===== -->
+    <div class="overlay" id="overlay"></div>
 
-  <!-- Area Utama Slide (100vw x 100vh bebas scroll halaman) -->
-  <main id="slideViewport" class="slide-viewport" tabindex="0" aria-live="polite">
-    <article id="slideContainer" class="slide-container">
-      <!-- Konten slide dirender secara dinamis dari script.js -->
-    </article>
-  </main>
+    <!-- ===== TOAST ===== -->
+    <div class="toast-container" id="toastContainer"></div>
 
-  <!-- Footer Kontrol Navigasi -->
-  <footer class="app-footer">
-    <button id="btnPrev" class="nav-btn" aria-label="Slide Sebelumnya (Panah Kiri)">
-      ← Sebelumnya
-    </button>
-    <div class="slide-counter-wrap">
-      <span id="slideCounter">1 / 44</span>
-      <span class="shortcut-hint">(Gunakan ← →, Spasi, M: Menu, N: Catatan, F: Fullscreen)</span>
-    </div>
-    <button id="btnNext" class="nav-btn nav-btn-primary" aria-label="Slide Selanjutnya (Panah Kanan / Spasi)">
-      Selanjutnya →
-    </button>
-  </footer>
-
-  <!-- Drawer Menu Bab & Overview Slide -->
-  <aside id="drawerMenu" class="drawer-overlay hidden" aria-hidden="true">
-    <div class="drawer-panel" role="dialog" aria-label="Navigasi Bab dan Slide">
-      <div class="drawer-header">
-        <h2>📚 Peta Materi & Daftar Slide</h2>
-        <button id="btnCloseDrawer" class="icon-btn" aria-label="Tutup Menu">✕</button>
-      </div>
-      <div id="drawerContent" class="drawer-body">
-        <!-- Daftar bab dan slide dirender oleh JS -->
-      </div>
-    </div>
-  </aside>
-
-  <!-- Panel Catatan Pembicara / Dosen (Tombol N) -->
-  <aside id="speakerNotesPanel" class="speaker-notes hidden" aria-live="polite">
-    <div class="notes-header">
-      <strong>🎙️ Catatan Pemateri / Kakak Tingkat</strong>
-      <span id="notesDuration" class="notes-duration">⏱️ ~2 menit</span>
-      <button id="btnCloseNotes" class="icon-btn-sm" aria-label="Tutup Catatan">✕</button>
-    </div>
-    <div id="notesBody" class="notes-body"></div>
-  </aside>
-
-  <script src="script.js"></script>
+    <div id="ytplayer" style="position:absolute; width:1px; height:1px; top:-9999px; left:-9999px;"></div>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="app.js"></script>
 </body>
 </html>
