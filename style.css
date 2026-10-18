@@ -1,0 +1,690 @@
+/* ==========================================================================
+   VARIABEL TEMA & KONFIGURASI VISUAL (UKDW CODING CLASSROOM)
+   ========================================================================== */
+:root {
+  --bg-main: #0b0f19;
+  --bg-card: #131b2e;
+  --bg-elevated: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --code-bg: #090d16;
+
+  /* Warna Aksen per Bab (Diubah dinamis lewat atribut data-chapter) */
+  --accent: #14b8a6;
+  --accent-soft: rgba(20, 184, 166, 0.16);
+
+  --success: #22c55e;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --transition: 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-elevated: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border-color: #cbd5e1;
+  --code-bg: #1e293b;
+}
+
+/* Aksen Warna Spesifik Setiap Bab */
+body[data-bab="0"] { --accent: #14b8a6; --accent-soft: rgba(20, 184, 166, 0.18); }
+body[data-bab="1"] { --accent: #10b981; --accent-soft: rgba(16, 185, 129, 0.18); }
+body[data-bab="2"] { --accent: #3b82f6; --accent-soft: rgba(59, 130, 246, 0.18); }
+body[data-bab="3"] { --accent: #f59e0b; --accent-soft: rgba(245, 158, 11, 0.18); }
+body[data-bab="4"] { --accent: #8b5cf6; --accent-soft: rgba(139, 92, 246, 0.18); }
+body[data-bab="5"] { --accent: #ec4899; --accent-soft: rgba(236, 72, 153, 0.18); }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: clamp(18px, 1.45vw, 26px);
+  line-height: 1.5;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+/* Hormati prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   PROGRESS BAR & HEADER / FOOTER
+   ========================================================================== */
+.top-progress-wrap {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-elevated);
+  flex-shrink: 0;
+}
+
+.top-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width var(--transition), background-color var(--transition);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 1.5rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.course-title {
+  font-size: clamp(14px, 1vw, 18px);
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
+.chapter-pill {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+  font-size: clamp(13px, 0.95vw, 16px);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
+
+.type-pill {
+  background: var(--accent-soft);
+  color: var(--text-main);
+  border: 1px solid var(--accent);
+  font-weight: 600;
+  font-size: clamp(13px, 0.95vw, 16px);
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+}
+
+.icon-btn {
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: clamp(14px, 0.95vw, 17px);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all var(--transition);
+}
+
+.icon-btn:hover, .icon-btn:focus-visible {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  outline: 2px solid var(--accent);
+}
+
+.step-indicator.has-steps {
+  border-color: var(--warning);
+  background: rgba(245, 158, 11, 0.15);
+}
+
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 1.5rem;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.nav-btn {
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 0.45rem 1.2rem;
+  border-radius: var(--radius-md);
+  font-size: clamp(15px, 1.05vw, 19px);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.nav-btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.nav-btn:hover, .nav-btn:focus-visible {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  outline: 2px solid var(--accent);
+}
+
+.slide-counter-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: clamp(14px, 1vw, 18px);
+  font-weight: 700;
+}
+
+.shortcut-hint {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: clamp(12px, 0.85vw, 15px);
+}
+
+/* ==========================================================================
+   AREA UTAMA SLIDE & TIPOGRAFI BESAR (PROYEKTOR KELAS)
+   ========================================================================== */
+.slide-viewport {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 2.2vh, 2.2rem) clamp(1.5rem, 3.5vw, 4rem);
+}
+
+.slide-container {
+  width: 100%;
+  max-width: 1620px;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.8rem, 1.8vh, 1.5rem);
+  animation: fadeSlide 260ms ease-out;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-title {
+  font-size: clamp(32px, 2.8vw, 52px);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  border-left: 8px solid var(--accent);
+  padding-left: 0.85rem;
+}
+
+.slide-subtitle {
+  font-size: clamp(20px, 1.5vw, 28px);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Grid & Kartu Konten */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: clamp(1rem, 1.8vw, 1.8rem);
+  align-items: stretch;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: clamp(0.85rem, 1.4vw, 1.4rem);
+}
+
+.card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: clamp(1rem, 1.6vw, 1.6rem);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.card-accent {
+  border-color: var(--accent);
+  background: linear-gradient(145deg, var(--bg-card), var(--accent-soft));
+}
+
+.card h3 {
+  font-size: clamp(22px, 1.6vw, 30px);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card p, .card li {
+  font-size: clamp(19px, 1.35vw, 25px);
+}
+
+.bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.bullet-list li {
+  position: relative;
+  padding-left: 1.8rem;
+}
+
+.bullet-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+/* Elemen Bertahap (Progressive Reveal) */
+.step-item {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+
+.step-item.step-hidden {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   BLOK KODE & SYNTAX HIGHLIGHTING
+   ========================================================================== */
+.code-wrapper {
+  position: relative;
+  background: var(--code-bg);
+  color: #f8fafc;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: clamp(17px, 1.25vw, 23px);
+  line-height: 1.55;
+  overflow-x: auto;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.2rem 0.6rem;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.copy-code-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.kw { color: #f472b6; font-weight: 700; }
+.fn { color: #60a5fa; }
+.str { color: #4ade80; }
+.num { color: #fbbf24; }
+.cmt { color: #64748b; font-style: italic; }
+
+/* Baris Kode Interaktif (Trace / Sinkronisasi) */
+.code-line {
+  padding: 0.18rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 180ms;
+  white-space: pre;
+  font-family: var(--font-mono);
+}
+
+.code-line.active-line {
+  background: rgba(245, 158, 11, 0.28);
+  border-left: 4px solid var(--warning);
+  font-weight: 700;
+}
+
+.code-line.error-line {
+  background: rgba(239, 68, 68, 0.28);
+  border-left: 4px solid var(--danger);
+}
+
+/* ==========================================================================
+   KOMPONEN INTERAKTIF (DEMO, KUIS, FLOWCHART SVG, STEPPER)
+   ========================================================================== */
+.btn-action {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1.15rem;
+  border-radius: var(--radius-md);
+  font-size: clamp(16px, 1.1vw, 20px);
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all var(--transition);
+}
+
+.btn-action.secondary {
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.btn-action.danger {
+  background: var(--danger);
+}
+
+.btn-action:hover {
+  filter: brightness(1.12);
+}
+
+.prompt-card {
+  padding: clamp(1.5rem, 2.5vw, 2.5rem);
+  text-align: center;
+  cursor: pointer;
+  border: 3px dashed var(--accent);
+  background: var(--accent-soft);
+  border-radius: var(--radius-lg);
+}
+
+.prompt-question {
+  font-size: clamp(24px, 2vw, 36px);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.feedback-box {
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  margin-top: 0.6rem;
+}
+
+.feedback-box.ok {
+  background: rgba(34, 197, 94, 0.18);
+  border: 2px solid var(--success);
+}
+
+.feedback-box.err {
+  background: rgba(239, 68, 68, 0.18);
+  border: 2px solid var(--danger);
+}
+
+/* Tabel Trace */
+.trace-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: clamp(16px, 1.15vw, 21px);
+}
+
+.trace-table th, .trace-table td {
+  border: 1px solid var(--border-color);
+  padding: 0.45rem 0.75rem;
+  text-align: center;
+}
+
+.trace-table th {
+  background: var(--bg-elevated);
+  color: var(--accent);
+}
+
+.trace-table tr.latest-row {
+  background: var(--accent-soft);
+  font-weight: 700;
+}
+
+/* Garis Bilangan range() */
+.number-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.num-node {
+  width: clamp(46px, 3.8vw, 64px);
+  height: clamp(46px, 3.8vw, 64px);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: clamp(18px, 1.4vw, 24px);
+  background: var(--bg-elevated);
+}
+
+.num-node.visited {
+  background: var(--accent);
+  color: #fff;
+  border-color: #fff;
+  transform: scale(1.06);
+}
+
+.num-node.stop-node {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* Item Urutan / Puzzle */
+.sortable-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: clamp(16px, 1.15vw, 20px);
+}
+
+/* SVG Flowchart Styling */
+.fc-svg {
+  width: 100%;
+  max-height: 410px;
+  background: var(--code-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.fc-node {
+  stroke: #64748b;
+  stroke-width: 2.5px;
+  fill: #1e293b;
+  transition: all 240ms;
+}
+
+.fc-node.active {
+  stroke: #fbbf24;
+  stroke-width: 4px;
+  fill: #0f766e;
+}
+
+.fc-text {
+  fill: #f8fafc;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.fc-edge {
+  stroke: #64748b;
+  stroke-width: 2.5px;
+  fill: none;
+}
+
+.fc-edge.active {
+  stroke: #fbbf24;
+  stroke-width: 4px;
+}
+
+/* ==========================================================================
+   DRAWER MENU & PANEL CATATAN PEMATERI
+   ========================================================================== */
+.hidden {
+  display: none !important;
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  z-index: 100;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.drawer-panel {
+  width: min(560px, 92vw);
+  height: 100%;
+  background: var(--bg-card);
+  border-right: 2px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-body {
+  padding: 1rem 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.drawer-chapter-group h3 {
+  font-size: 18px;
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+}
+
+.drawer-slide-btn {
+  width: 100%;
+  text-align: left;
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  margin-bottom: 0.35rem;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.drawer-slide-btn.current {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 700;
+}
+
+.speaker-notes {
+  position: fixed;
+  bottom: 4.2rem;
+  right: 1.5rem;
+  width: min(520px, 92vw);
+  background: var(--bg-card);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  z-index: 80;
+  padding: 1rem 1.25rem;
+}
+
+.notes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 16px;
+}
+
+.notes-duration {
+  background: var(--accent-soft);
+  padding: 0.15rem 0.55rem;
+  border-radius: 99px;
+  font-size: 14px;
+}
+
+.notes-body {
+  font-size: 16px;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.icon-btn-sm {
+  background: transparent;
+  color: var(--text-main);
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+input[type="number"], input[type="text"], select {
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.35rem 0.65rem;
+  font-size: clamp(16px, 1.15vw, 21px);
+  font-family: var(--font-mono);
+}

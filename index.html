@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Ajar Interaktif — Dasar Pemrograman UKDW</title>
+  <!-- Google Fonts dengan fallback sistem monospace & sans-serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Progress Bar Atas -->
+  <div class="top-progress-wrap" aria-hidden="true">
+    <div id="progressBar" class="top-progress-bar"></div>
+  </div>
+
+  <!-- Header Navigasi Atas -->
+  <header class="app-header">
+    <div class="header-left">
+      <button id="btnMenu" class="icon-btn" aria-label="Buka Daftar Bab dan Slide (M)" title="Daftar Bab & Slide (M / Esc)">
+        ☰ <span class="btn-label">Daftar Isi</span>
+      </button>
+      <span id="chapterBadge" class="chapter-pill">Bab 0</span>
+      <span id="slideTypeBadge" class="type-pill">📘 Konsep</span>
+    </div>
+
+    <div class="header-center">
+      <span class="course-title">Informatika UKDW · Dasar Pemrograman</span>
+    </div>
+
+    <div class="header-right">
+      <button id="btnStepReveal" class="icon-btn step-indicator" aria-label="Tampilkan Langkah Berikutnya" title="Munculkan poin bertahap (Spasi / Panah Kanan)">
+        👣 <span id="stepCounterText">Langkah</span>
+      </button>
+      <button id="btnNotes" class="icon-btn" aria-label="Catatan Pemateri (N)" title="Mode Dosen / Catatan Pembicara (N)">
+        🎙️ <span class="btn-label">Catatan (N)</span>
+      </button>
+      <button id="btnTheme" class="icon-btn" aria-label="Ganti Tema Terang atau Gelap (T)" title="Mode Terang/Gelap (T)">
+        🌗
+      </button>
+      <button id="btnFullscreen" class="icon-btn" aria-label="Layar Penuh (F)" title="Layar Penuh (F)">
+        ⛶ <span class="btn-label">Layar Penuh</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Area Utama Slide (100vw x 100vh bebas scroll halaman) -->
+  <main id="slideViewport" class="slide-viewport" tabindex="0" aria-live="polite">
+    <article id="slideContainer" class="slide-container">
+      <!-- Konten slide dirender secara dinamis dari script.js -->
+    </article>
+  </main>
+
+  <!-- Footer Kontrol Navigasi -->
+  <footer class="app-footer">
+    <button id="btnPrev" class="nav-btn" aria-label="Slide Sebelumnya (Panah Kiri)">
+      ← Sebelumnya
+    </button>
+    <div class="slide-counter-wrap">
+      <span id="slideCounter">1 / 44</span>
+      <span class="shortcut-hint">(Gunakan ← →, Spasi, M: Menu, N: Catatan, F: Fullscreen)</span>
+    </div>
+    <button id="btnNext" class="nav-btn nav-btn-primary" aria-label="Slide Selanjutnya (Panah Kanan / Spasi)">
+      Selanjutnya →
+    </button>
+  </footer>
+
+  <!-- Drawer Menu Bab & Overview Slide -->
+  <aside id="drawerMenu" class="drawer-overlay hidden" aria-hidden="true">
+    <div class="drawer-panel" role="dialog" aria-label="Navigasi Bab dan Slide">
+      <div class="drawer-header">
+        <h2>📚 Peta Materi & Daftar Slide</h2>
+        <button id="btnCloseDrawer" class="icon-btn" aria-label="Tutup Menu">✕</button>
+      </div>
+      <div id="drawerContent" class="drawer-body">
+        <!-- Daftar bab dan slide dirender oleh JS -->
+      </div>
+    </div>
+  </aside>
+
+  <!-- Panel Catatan Pembicara / Dosen (Tombol N) -->
+  <aside id="speakerNotesPanel" class="speaker-notes hidden" aria-live="polite">
+    <div class="notes-header">
+      <strong>🎙️ Catatan Pemateri / Kakak Tingkat</strong>
+      <span id="notesDuration" class="notes-duration">⏱️ ~2 menit</span>
+      <button id="btnCloseNotes" class="icon-btn-sm" aria-label="Tutup Catatan">✕</button>
+    </div>
+    <div id="notesBody" class="notes-body"></div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
